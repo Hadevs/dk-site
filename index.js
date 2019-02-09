@@ -1,63 +1,24 @@
-// let text = prompt("Введите ваше имя");
-// let label = document.getElementById("idTitleLabel");
-// label.innerHTML = `Привет, ${text}`
+const express = require('express');
+const bodyParser = require('body-parser');
+const cors = require('cors');
 
-let defaultNavBarWidth = 650;
-let miniNavBarWidth = 300;
+const app = express();
+const port = 8080;
 
-function openNav() {
-    document.getElementById("mySidenav").style.width = "250px";
-}
+app.use(express.static(__dirname));
 
-/* Set the width of the side navigation to 0 */
-function closeNav() {
-    document.getElementById("mySidenav").style.width = "0";
-}
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
-function showRightContainer() {
-    document.getElementById("rightContainer").style.opacity = 1;
-}
+app.use(cors({
+  origin: (origin, callback) => callback(null, true),
+  credentials: true
+}));
 
-function hideRightContainer() {
-    document.getElementById("rightContainer").style.opacity = 0;
-}
+app.get('/', (req, res) => {
+	res.sendFile('./index.html', { root: __dirname }).end();
+});
 
-function showSidePanel(panelName) {
-    switch (panelName) {
-        case "mini":
-            document.getElementById("miniSidenav").style.width = `${miniNavBarWidth}px`;
-            document.getElementById("mySidenav").style.width = `${0}px`;
-            break;
-        case "default":
-            document.getElementById("miniSidenav").style.width = `${0}px`;
-            document.getElementById("mySidenav").style.width = `100%`;
-            break;
-    }
-}
-
-function cvClicked() {
-    const cvLabel = document.getElementById("cvLabel")
-    if (cvLabel.innerHTML.includes("•")) {
-        //off 
-        showSidePanel("default")
-        hideCV()
-        hideRightContainer()
-    } else {
-        //on
-        showSidePanel("mini")
-        openCV()
-        showRightContainer()
-    }
-}
-function openCV() {
-    const cvLabel = document.getElementById("cvLabel")
-    cvLabel.innerHTML += "•"
-}
-
-function hideCV() {
-    const cvLabel = document.getElementById("cvLabel")
-    cvLabel.innerHTML = "CV"
-}
-
-showSidePanel("default")
-// cvClicked()
+app.listen(port, () => {
+	console.log(`dksite running on port :${port}`);
+});

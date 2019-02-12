@@ -19,4 +19,7 @@ var resize = function() {
   document.getElementById('title').style.marginLeft = '4%';
   document.getElementById('footer').style.width = '92%';
   document.getElementById('footer').style.marginLeft = '4%';
+  var sides = document.getElementsByClassName('side');
+  sides[0].style.width = '100%';
+  sides[1].parentNode.removeChild(sides[1]);
 };

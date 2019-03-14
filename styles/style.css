@@ -29,11 +29,8 @@ html, body {
     width: 100%;
     padding-top: 15px;
 }
-.wrap {
-    display: table-row;
-    height: 100%;
-    width: 100%;
-    margin-bottom: 5px;
+#wrap {
+    min-height: 35vh;
 }
 .side {
     width: 50%;
